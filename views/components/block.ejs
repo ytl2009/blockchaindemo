@@ -1,0 +1,100 @@
+<div class="card card-block card-success" id="block<%= block.block %>chain<%= block.chain %>card">
+    <div class="card-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label"
+                       for="block<%= block.block %>chain<%= block.chain %>number">Block:</label>
+                <div class="col-sm">
+                    <div class="input-group">
+                        <span class="input-group-addon">#</span>
+                        <input class="form-control" id="block<%= block.block %>chain<%= block.chain %>number"
+                               type="text" value="<%= block.block %>"
+                               onkeyup="updateChain('<%= block.block %>','<%= block.chain %>','<%= block.txCount %>')">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"
+                       for="block<%= block.block %>chain<%= block.chain %>nonce">Nonce:</label>
+                <div class="col-sm">
+                    <input class="form-control" id="block<%= block.block %>chain<%= block.chain %>nonce" type="text"
+                           value="<%= block.nonce %>"
+                           onkeyup="updateChain('<%= block.block %>','<%= block.chain %>','<%= block.txCount %>')">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">CoinBase:</label>
+                <div class="col-sm">
+                    <div class="input-group">
+                        <div class="input-group-addon">$</div>
+                        <input class="form-control" id="block<%= block.block %>chain<%= block.chain %>coinbasevalue"
+                               type="text" value="<%= block.coinbasevalue %>"
+                               onkeyup="updateChain('<%= block.block %>','<%= block.chain %>','<%= block.txCount %>')">
+                        <div class="input-group-addon">To:</div>
+                        <input class="form-control" id="block<%= block.block %>chain<%= block.chain %>coinbaseto"
+                               type="text" value="<%= block.coinbaseto %>"
+                               onkeyup="updateChain('<%= block.block %>','<%= block.chain %>','<%= block.txCount %>')">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">TX:</label>
+                <div class="col-sm">
+                    <% block.txs.forEach(function (tx, i) { %>
+                    <div class="input-group">
+                        <div class="input-group-addon">$</div>
+                        <input class="form-control" id="block<%= block.block %>chain<%= block.chain %>tx<%= i %>value"
+                               type="text" value="<%= tx.value %>"
+                               onkeyup="updateChain('<%= block.block %>','<%= block.chain %>','<%= block.txCount %>')">
+                        <div class="input-group-addon">From:</div>
+                        <input class="form-control" id="block<%= block.block %>chain<%= block.chain %>tx<%= i %>from"
+                               type="text" value="<%= tx.from %>"
+                               onkeyup="updateChain('<%= block.block %>','<%= block.chain %>','<%= block.txCount %>')">
+                        <div class="input-group-addon">To:</div>
+                        <input class="form-control" id="block<%= block.block %>chain<%= block.chain %>tx<%= i %>to"
+                               type="text" value="<%= tx.to %>"
+                               onkeyup="updateChain('<%= block.block %>','<%= block.chain %>','<%= block.txCount %>')">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-addon">Sig:</div>
+                        <input class="form-control" id="block<%= block.block %>chain<%= block.chain %>tx<%= i %>sig"
+                               type="text" value="<%= tx.sig %>"
+                               onkeyup="updateChain('<%= block.block %>','<%= block.chain %>','<%= block.txCount %>')">
+
+                    </div>
+                    <br>
+                    <% }) %>
+                </div>
+            </div>
+            <div class="form-group" id="state">
+                <label class="col-sm-2 control-label"
+                       for="block<%= block.block %>chain<%= block.chain %>previous">Prev:</label>
+                <div class="col-sm">
+                    <input class="form-control" id="block<%= block.block %>chain<%= block.chain %>previous" type="text"
+                           value="<%= block.previous %>">
+                </div>
+            </div>
+            <div class="form-group" id="state">
+                <label class="col-sm-2 control-label"
+                       for="block<%= block.block %>chain<%= block.chain %>hash">Hash:</label>
+                <div class="col-sm">
+                    <input class="form-control" id="block<%= block.block %>chain<%= block.chain %>hash" type="text"
+                           disabled>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <i class="icon-spinner icon-spin icon-large"></i>
+                </div>
+                <div class="col-sm">
+                    <button class="btn btn-primary ladda-button"
+                            id="block<%= block.block %>chain<%= block.chain %>mineButton" data-style="expand-right">
+                        <span class="ladda-label">Mine</span>
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,58 @@
+<%- include('header') %>
+<div class="container">
+    <div class="card">
+        <h3 class="card-header">Public / Private Key Pairs</h3>
+        <div class="card-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label" for="data">Private Key</label>
+
+                    <div class="input-group">
+                        <input class="form-control" id="privateKey" aria-label="Private Key" type="number">
+                        <span class="input-group-btn"><button class="btn btn-secondary">Random</button></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="data">Public Key</label>
+                    <input class="form-control" id="publicKey" disabled>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var EC = elliptic.elliptic().ec;
+    var ec = new EC('secp256k1');
+
+    var keypair = ec.genKeyPair();
+    if (Cookies.get('privateKey')) {
+        keypair = ec.keyFromPrivate(Cookies.get('privateKey'));
+    }
+
+    function update() {
+        var prv = keypair.getPrivate('hex');
+        var pub = keypair.getPublic('hex');
+        $('#privateKey').val(bigInt(prv, 16).toString());
+        $('#publicKey').val(pub);
+        Cookies.set('privateKey', prv.toString());
+        Cookies.set('publicKey', pub.toString());
+    }
+
+    function random() {
+        keypair = ec.genKeyPair();
+        update();
+    }
+
+    $(function () {
+        $('#randomButton').click(random);
+        $('#privateKey').bind('keyup', function () {
+            $('#privateKey').val($('#privateKey').val().replace(/\D/g, ''));
+            keypair = ec.keyFromPrivate(bigInt($('#privateKey').val()).toString(16));
+            update();
+        });
+        update();
+    });
+</script>
+
+<%- include('footer') %>
